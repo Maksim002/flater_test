@@ -1,3 +1,5 @@
+import 'package:flater_agent/repositories/cripto_coin/crypto_coin_repository.dart';
+import 'package:flater_agent/repositories/cripto_coin/models/crypto_coin.dart';
 import 'package:flutter/material.dart';
 import '../widgets/home_page_title.dart';
 
@@ -11,6 +13,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  List<CryptoCoin>? cryptoCoinList;
+
+  @override
+  void initState() {
+    loadCryptoCoin();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +29,12 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: const HomeTitle(),
+      body: HomeTitle(cryptoCoinList: cryptoCoinList),
     );
+  }
+
+  Future<void> loadCryptoCoin() async {
+    cryptoCoinList = await CryptoCoinRepository().getCoinList();
+    setState(() {});
   }
 }
