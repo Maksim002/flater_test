@@ -1,4 +1,3 @@
-
 class CryptoCoin {
   final String name;
   final double priseInUDS;
